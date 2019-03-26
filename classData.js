@@ -12,7 +12,7 @@ var drawHistogram=function(data)
 {
   var scren=
   {
-    width=800
+    width=800,
     height=600
   };
   var svg=d3.select("svg")
@@ -32,5 +32,18 @@ var drawHistogram=function(data)
                .domain([d3.extend(data)])
                .nice()
                .range([0,width]);
+  var colors=d3.scaleOrdinal(d3.schemeAccent);
+  var plotLand =svg.append("g")
+                  .classed("plot",true)
+                  .attr("transform","translate("+margins.left+","+margins.top+")");
+
+  var penguin=plotLand.selectAll("rect")
+                       .data(data)
+                       .enter()
+                       .append("rect")
+                       .attr("fill",function(d){ return colors(d.name);})
+                       .attr("x",function(d,i){return xScale(i);})
+                       .attr("y",function(d,i){return yScale(d.grade);})
+
 
 }
