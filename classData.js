@@ -4,9 +4,9 @@ dataP.then(function(data)
 
   array= data.map(function(element){
     return(element.homework[0].grade)
-    drawHistogram(array)
   })
   console.log(array)
+  drawHistogram(array)
 },
 function(err)
 {
@@ -23,6 +23,7 @@ var drawHistogram=function(data)
   var svg=d3.select("svg")
             .attr("width",scren.width)
             .attr("height",scren.height)
+console.log('try1')
   var margins=
   {
     top:20,
@@ -32,36 +33,37 @@ var drawHistogram=function(data)
   }
   var width=scren.width-margins.left-margins.right;
   var height=scren.height-margins.top-margins.bottom;
-
+console.log('try2')
   var xScale=d3.scaleLinear()
                .domain([d3.extent(data)])
                .nice()
                .range([0,width]);
+console.log('try3')
   var binMaker = d3.histogram()
               .domain(xScale.domain())
-              .thresholds(xScale.ticks(50))
+              .thresholds(xScale.ticks(10))
   var bins = binMaker(data);
             console.log('bins',bins);
-  var percentage = function(d)
-  {
-    return d.length/dist.length
-  }
-
-  var yScale = d3.scaleLinear()
-                  .domain([0,d3.max(bins),function(d){return percentage(d);}])
-                  .range([height,0])
-                  .nice();
-
-  var colors=d3.scaleOrdinal(d3.schemeAccent);
-  var plotLand =svg.append("g")
-                  .classed("plot",true)
-                  .attr("transform","translate("+margins.left+","+margins.top+")");
-svg.selectAll('rect')
-    .data(bins)
-    .enter()
-    .append('rect')
-    .attr('x',function(d){return xScale(d.quiz);})
-    .attr('width',function(d) {return xScale(d.quizes-.1) - xScale(d.quizes);})
+//   var percentage = function(d)
+//   {
+//     return d.length/dist.length
+//   }
+//
+//   var yScale = d3.scaleLinear()
+//                   .domain([0,d3.max(bins),function(d){return percentage(d);}])
+//                   .range([height,0])
+//                   .nice();
+//
+//   var colors=d3.scaleOrdinal(d3.schemeAccent);
+//   var plotLand =svg.append("g")
+//                   .classed("plot",true)
+//                   .attr("transform","translate("+margins.left+","+margins.top+")");
+// svg.selectAll('rect')
+//     .data(bins)
+//     .enter()
+//     .append('rect')
+//     .attr('x',function(d){return xScale(d.quiz);})
+//     .attr('width',function(d) {return xScale(d.quizes-.1) - xScale(d.quizes);})
 
 
 
