@@ -44,10 +44,6 @@ var drawHistogram=function(data)
                        .attr("fill",function(d){ return colors(d.name);})
                        .attr("x",function(d,i){return xScale(i);})
                        .attr("y",function(d,i){return yScale(d.grade);})
-<<<<<<< HEAD
-=======
-  var binMaker = d3.histogram()
 
->>>>>>> afc2edac87ed526fd6623fe41b4f7ff4efe43af6
 
 }
