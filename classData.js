@@ -3,6 +3,12 @@ dataP.then(function(data)
 {
   console.log("data",data)
   console.log("grade",data[0].homework[0].grade)
+  array=[]
+  data.forEach(function(element){
+    console.log(element.homework[x].grade)
+    array.push(element.homework[0].grade)
+  })
+  console.log(array)
   console.log("gradeall",data.quizes.grade)
 },
 function(err)
