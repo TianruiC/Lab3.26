@@ -12,8 +12,8 @@ var drawHistogram=function(data)
 {
   var scren=
   {
-    width=800,
-    height=600
+    width:800,
+    height:600
   };
   var svg=d3.select("svg")
             .attr("width",scren.width)
@@ -44,5 +44,10 @@ var drawHistogram=function(data)
                        .attr("fill",function(d){ return colors(d.name);})
                        .attr("x",function(d,i){return xScale(i);})
                        .attr("y",function(d,i){return yScale(d.grade);})
+<<<<<<< HEAD
+=======
+  var binMaker = d3.histogram()
+
+>>>>>>> afc2edac87ed526fd6623fe41b4f7ff4efe43af6
 
 }
