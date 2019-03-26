@@ -2,6 +2,8 @@ var dataP=d3.json("classData.json");
 dataP.then(function(data)
 {
   console.log("data",data)
+  console.log("grade",data[0].homework[0].grade)
+  console.log("gradeall",data.quizes.grade)
 },
 function(err)
 {
@@ -29,21 +31,37 @@ var drawHistogram=function(data)
   var height=scren.height-margins.top-margins.bottom;
 
   var xScale=d3.scaleLinear()
-               .domain([d3.extend(data)])
+               .domain([d3.extent(data)])
                .nice()
                .range([0,width]);
+  var binMaker = d3.histogram()
+              .domain(xScale.domain())
+              .thresholds(xScale.ticks(50))
+  var bins = binMaker(data);
+            console.log('bins',bins);
+  var percentage = function(d)
+  {
+    return d.length/dist.length
+  }
+
+  var yScale = d3.scaleLinear()
+                  .domain([0,d3.max(bins),function(d){return percentage(d);}])
+                  .range([height,0])
+                  .nice();
+
   var colors=d3.scaleOrdinal(d3.schemeAccent);
   var plotLand =svg.append("g")
                   .classed("plot",true)
                   .attr("transform","translate("+margins.left+","+margins.top+")");
+svg.selectAll('rect')
+    .data(bins)
+    .enter()
+    .append('rect')
+    .attr('x',function(d){return xScale(d.quiz);})
+    .attr('width',function(d) {return xScale(d.quizes-.1) - xScale(d.quizes);})
 
-  var penguin=plotLand.selectAll("rect")
-                       .data(data)
-                       .enter()
-                       .append("rect")
-                       .attr("fill",function(d){ return colors(d.name);})
-                       .attr("x",function(d,i){return xScale(i);})
-                       .attr("y",function(d,i){return yScale(d.grade);})
+
 
 
 }
+//plot.selectAll('rect')
