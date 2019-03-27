@@ -5,7 +5,6 @@ dataP.then(function(data)
   array= data.map(function(element){
     return(element.homework[0].grade)
   })
-  console.log(array)
   drawHistogram(array)
 },
 function(err)
@@ -23,7 +22,7 @@ var drawHistogram=function(data)
   var svg=d3.select("svg")
             .attr("width",scren.width)
             .attr("height",scren.height)
-console.log('try1')
+
   var margins=
   {
     top:20,
@@ -33,17 +32,33 @@ console.log('try1')
   }
   var width=scren.width-margins.left-margins.right;
   var height=scren.height-margins.top-margins.bottom;
-console.log('try2')
+
   var xScale=d3.scaleLinear()
-               .domain([d3.extent(data)])
+               .domain(d3.extent(data))
                .nice()
                .range([0,width]);
-console.log('try3')
+
   var binMaker = d3.histogram()
               .domain(xScale.domain())
               .thresholds(xScale.ticks(10))
   var bins = binMaker(data);
             console.log('bins',bins);
+  var xScale = d3.scaleLinear()
+                  .domain([0,bins.length])
+                  .range([0, 380])
+  var yScale = d3.scaleLinear()
+                  .domain([0,100])
+                  .range([height,0])
+  var plot = svg.append('g')
+                .attr("width",380)
+                .attr("height",380)
+    plot.selectAll('rect')
+        .data(bins)
+        .enter()
+        .append('rect')
+        .attr('x',function(d,i){return(xScale(i))})
+        .attr('y', 100)
+
 //   var percentage = function(d)
 //   {
 //     return d.length/dist.length
