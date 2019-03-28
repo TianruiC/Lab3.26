@@ -1,8 +1,8 @@
 var dataP=d3.json("classData.json");
 dataP.then(function(data)
 {
-
-  drawHistogram(data,5)
+  drawButton(data)
+  drawHistogram(data,10)
 },
 function(err)
 {
@@ -16,7 +16,7 @@ var drawHistogram=function(data,x)
   var scren=
   {
     width:800,
-    height:600
+    height:400
   };
   var svg=d3.select("svg")
             .attr("width",scren.width)
@@ -32,7 +32,7 @@ var drawHistogram=function(data,x)
   var boxHeight=scren.height-margins.top-margins.bottom;
 
   var xScale=d3.scaleLinear()
-               .domain(d3.extent(array))
+               .domain([0, 50])
                .nice()
                .range([0,boxWidth]);
 
@@ -54,9 +54,14 @@ var drawHistogram=function(data,x)
         .data(bins)
         .enter()
         .append('rect')
-        .attr('x',function(d,i){return(10*(d.x0)-100)})
+        .attr('x',function(d,i){return(10*(d.x0))})
         .attr('y', function(d,i){return(200-(20*d.length))})
         .attr('height',function(d,i){return(20*(d.length))})
         .attr('width',40)
         .attr('fill','#558175')
+  }
+  var drawButton = function(data){
+    d3.select("body").selectAll("button").data(data[0].homework).enter().append("button")
+    .text(function(d){return d.day})
+    .on("click",function(d,i){return  drawHistogram(data,i)})
   }
