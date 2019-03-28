@@ -1,7 +1,6 @@
 var dataP=d3.json("classData.json");
 dataP.then(function(data)
 {
-
   array= data.map(function(element){
     return(element.homework[0].grade)
   })
@@ -11,7 +10,6 @@ function(err)
 {
   console.log(err);
 })
-
 var drawHistogram=function(data)
 {
   var scren=
@@ -22,7 +20,6 @@ var drawHistogram=function(data)
   var svg=d3.select("svg")
             .attr("width",scren.width)
             .attr("height",scren.height)
-
   var margins=
   {
     top:20,
@@ -60,30 +57,4 @@ var drawHistogram=function(data)
         .attr('y', function(d,i){return(200-(20*d.length))})
         .attr('height',function(d,i){return(20*(d.length))})
         .attr('width',40)
-        //.attr('')
-
-//   var percentage = function(d)
-//   {
-//     return d.length/dist.length
-//   }
-//
-//   var yScale = d3.scaleLinear()
-//                   .domain([0,d3.max(bins),function(d){return percentage(d);}])
-//                   .range([height,0])
-//                   .nice();
-//
-//   var colors=d3.scaleOrdinal(d3.schemeAccent);
-//   var plotLand =svg.append("g")
-//                   .classed("plot",true)
-//                   .attr("transform","translate("+margins.left+","+margins.top+")");
-// svg.selectAll('rect')
-//     .data(bins)
-//     .enter()
-//     .append('rect')
-//     .attr('x',function(d){return xScale(d.quiz);})
-//     .attr('width',function(d) {return xScale(d.quizes-.1) - xScale(d.quizes);})
-
-
-
-
-}
+  }
