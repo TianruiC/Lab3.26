@@ -1,17 +1,18 @@
 var dataP=d3.json("classData.json");
 dataP.then(function(data)
 {
-  array= data.map(function(element){
-    return(element.homework[0].grade)
-  })
-  drawHistogram(array)
+
+  drawHistogram(data,5)
 },
 function(err)
 {
   console.log(err);
 })
-var drawHistogram=function(data)
+var drawHistogram=function(data,x)
 {
+  var array= data.map(function(element){
+    return(element.homework[x].grade)
+  })
   var scren=
   {
     width:800,
@@ -31,14 +32,14 @@ var drawHistogram=function(data)
   var boxHeight=scren.height-margins.top-margins.bottom;
 
   var xScale=d3.scaleLinear()
-               .domain(d3.extent(data))
+               .domain(d3.extent(array))
                .nice()
                .range([0,boxWidth]);
 
   var binMaker = d3.histogram()
               .domain(xScale.domain())
               .thresholds(xScale.ticks(10))
-  var bins = binMaker(data);
+  var bins = binMaker(array);
             console.log('bins',bins);
   var xScale = d3.scaleLinear()
                   .domain([0,bins.length])
