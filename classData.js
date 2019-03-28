@@ -57,4 +57,5 @@ var drawHistogram=function(data)
         .attr('y', function(d,i){return(200-(20*d.length))})
         .attr('height',function(d,i){return(20*(d.length))})
         .attr('width',40)
+        .attr('fill','#558175')
   }
