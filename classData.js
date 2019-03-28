@@ -30,13 +30,13 @@ var drawHistogram=function(data)
     left:35,
     right:70
   }
-  var width=scren.width-margins.left-margins.right;
-  var height=scren.height-margins.top-margins.bottom;
+  var boxWidth=scren.width-margins.left-margins.right;
+  var boxHeight=scren.height-margins.top-margins.bottom;
 
   var xScale=d3.scaleLinear()
                .domain(d3.extent(data))
                .nice()
-               .range([0,width]);
+               .range([0,boxWidth]);
 
   var binMaker = d3.histogram()
               .domain(xScale.domain())
@@ -47,8 +47,8 @@ var drawHistogram=function(data)
                   .domain([0,bins.length])
                   .range([0, 380])
   var yScale = d3.scaleLinear()
-                  .domain([0,100])
-                  .range([height,0])
+                  .domain([100,0])
+                  .range([boxHeight,0])
   var plot = svg.append('g')
                 .attr("width",380)
                 .attr("height",380)
@@ -56,8 +56,11 @@ var drawHistogram=function(data)
         .data(bins)
         .enter()
         .append('rect')
-        .attr('x',function(d,i){return(xScale(i))})
-        .attr('y', 100)
+        .attr('x',function(d,i){return(10*(d.x0)-100)})
+        .attr('y', function(d,i){return(200-(20*d.length))})
+        .attr('height',function(d,i){return(20*(d.length))})
+        .attr('width',40)
+        //.attr('')
 
 //   var percentage = function(d)
 //   {
