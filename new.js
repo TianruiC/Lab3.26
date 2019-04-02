@@ -64,7 +64,6 @@ var drawHistogram=function(data){
             .attr('y', function(d){return yScale(d.length)+5})
             .text(function(d){if (d.length>0){return d.length}})
           })
-
   //draw rect
   var svg=d3.select("body").append("svg")
             .attr("id","graph")
@@ -103,6 +102,4 @@ var drawHistogram=function(data){
   .attr('x', function(d){return xScale(d.x1+(d.x1-d.x0)/2)})
   .attr('y', function(d){return yScale(d.length)+5})
   .text(function(d){if (d.length>0){return d.length}})
-
-
 }
