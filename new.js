@@ -78,7 +78,7 @@ var drawHistogram=function(data){
       .attr('x',function(d){return xScale(d.x0)})
       .attr('y', function(d){return yScale(d.length)})
       .attr('height',function(d){return height-yScale(d.length)})
-      .attr('width',function(d){return xScale(d.x1-0.1)-xScale(d.x0)})
+      .attr('width',function(d){return width/11-1})
       .attr('fill', function(d,i){return color(i)})
   //axis
   var xAxis=d3.axisBottom(xScale)
