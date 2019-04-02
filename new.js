@@ -93,12 +93,6 @@ var drawHistogram=function(data){
      .attr("id","yAxis")
      .call(yAxis)
      .attr('transform', 'translate(' + 65 + ',' + margins.top + ')')
-  // svg.append("g").append("line")
-  //     .attr('x1',65 )
-  //     .attr('y1', height+margins.top+0.5)
-  //     .attr('x2', 100)
-  //     .attr('y2', height+margins.top+0.5)
-  //     .style('stroke', 'black');
   //labels
   svg.append("g")
   .attr('id', 'scoretext')
